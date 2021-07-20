@@ -12,23 +12,23 @@ variable "rg_location" {
 variable "tags" {
   description = "resource tags"
   type        = map(any)
-  default = {}
+  default     = {}
 }
 
 variable "random_min" {
-    description = "minimum value for random number range"
-    type = number
-    default = 10000
+  description = "minimum value for random number range"
+  type        = number
+  default     = 10000
 }
 variable "random_max" {
-    description = "maximum value for random number range"
-    type = number
-    default = 99999
+  description = "maximum value for random number range"
+  type        = number
+  default     = 99999
 }
 variable "stacc_name_prefix" {
-    description = "prefix for the azure storage account name - random value will be added as suffix"
-    type = string
-    default = "example"
+  description = "prefix for the azure storage account name - random value will be added as suffix"
+  type        = string
+  default     = "example"
 }
 variable "acc_tier" {
   description = "azure storage tier"
@@ -60,9 +60,8 @@ variable "sas_timeadd" {
   default     = "24h"
 }
 
-
 variable "sas_output_file" {
   description = "output file containing sas details for remote state"
   type        = string
-  default     = "example.txt"
+  default     = "./example.txt"
 }
