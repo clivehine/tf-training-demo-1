@@ -64,5 +64,5 @@ variable "sas_timeadd" {
 variable "sas_output_file" {
   description = "output file containing sas details for remote state"
   type        = string
-  default     = "sas-remote-state.txt"
+  default     = "example.txt"
 }

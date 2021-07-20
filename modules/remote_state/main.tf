@@ -47,7 +47,6 @@ data "azurerm_storage_account_sas" "state" {
   }
   start = var.sas_start     # We need to declare this as a variable in the modules variables.tf
   expiry = timeadd(var.sas_start, var.sas_timeadd) # We need to declare this as a variable in the modules variables.tf
-
   permissions {
     read    = true
     write   = true
