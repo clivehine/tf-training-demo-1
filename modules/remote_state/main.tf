@@ -75,6 +75,14 @@ resource "null_resource" "post-deploy" {
   }
 }
 
+resource "null_resource" "plan-deploy" {
+  provisioner "local-exec" {
+  when = destroy
+  interpreter = ["powershell", "-Command"]
+  command = "mv -Force ./sas_remote_state.txt ./prev_sas_remote_state.txt"
+  }
+}
+
 /*it was ->
 resource "null_resource" "post-deploy" {
   depends_on = [azurerm_storage_container.ct]     # We need to ensure the container exists before providing the output
