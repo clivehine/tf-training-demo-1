@@ -60,13 +60,31 @@ data "azurerm_storage_account_sas" "state" {
 }
 
 resource "null_resource" "post-deploy" {
-  depends_on = [azurerm_storage_container.ct] # We need to ensure the container exists before providing the output
+  depends_on = [azurerm_storage_container.ct]     # We need to ensure the container exists before providing the output
   provisioner "local-exec" {
-    command = <<EOT
-  echo 'storage_account_name = ${azurerm_storage_account.stacc.name}' >> ${var.sas_output_file}
-  echo 'container_name = "tf-state"' >> ${var.sas_output_file}
-  echo 'key = "terraform.tfstate"' >> ${var.sas_output_file}
-  echo 'sas_token = "${data.azurerm_storage_account_sas.state.sas}"' >> ${var.sas_output_file}
-EOT
+   command = "echo 'storage_account_name = ${azurerm_storage_account.stacc.name}' > ${var.sas_output_file}"
+  }
+  provisioner "local-exec" {
+   command = "echo 'container_name = tf-state' >> ${var.sas_output_file}"
+  }
+  provisioner "local-exec" {
+    command = "echo 'key = terraform.tfstate' >> ${var.sas_output_file}"
+  }
+  provisioner "local-exec" {
+  command = "echo 'sas_token = \"${data.azurerm_storage_account_sas.state.sas}\"' >> ${var.sas_output_file}"
   }
 }
+
+/*it was ->
+resource "null_resource" "post-deploy" {
+  depends_on = [azurerm_storage_container.ct]     # We need to ensure the container exists before providing the output
+  provisioner "local-exec" {
+  command = <<EOT
+  echo 'storage_account_name = "${azurerm_storage_account.stacc.name}"' >> ${var.sas_output_file} # variable we need to define
+  echo 'container_name = "tf-state"'                                    >> ${var.sas_output_file}
+  echo 'key = "terraform.tfstate"'                                      >> ${var.sas_output_file}
+  echo 'sas_token = "${data.azurerm_storage_account_sas.state.sas}"'    >> ${var.sas_output_file}
+  EOT
+  }
+}
+<-- end */

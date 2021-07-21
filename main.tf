@@ -2,7 +2,8 @@ provider "azurerm" {
   features {}
 }
 
-
+/* We start with a few comments here
+and complete the block of comments on this line */
 module "azure_remote_state" {
   source            = "./modules/remote_state"               # Where it the module located
   random_min        = 100000                                 # Minimum value for our random integer
@@ -15,5 +16,5 @@ module "azure_remote_state" {
   container_name    = "tf-state"                             # Azure Storage Account Container Name
   sas_start         = timestamp()   #"2021-03-30T07:00:00Z"  # Starting time for the SAS Token including req. format
   sas_timeadd       = "48h"                                  # Duration from starting time when SAS Token will expire
-  sas_output_file   = "sas_remote_state2.txt"                 # Output file containing all the information we need to move to remove state
+  sas_output_file   = "sas_remote_state.txt"                 # Output file containing all the information we need to move to remove state
 }
